@@ -10,7 +10,7 @@ import { USER_PACKAGE_NAME, USERS_SERVICE_NAME } from './user.pb';
         name: USERS_SERVICE_NAME,
         transport: Transport.GRPC,
         options: {
-          url: '0.0.0.0:3000',
+          url: '0.0.0.0:3001',
           package: USER_PACKAGE_NAME,
           protoPath: 'node_modules/grpc-nest-proto/proto/user.proto',
         },

@@ -59,6 +59,18 @@ export interface SocialMedia {
   fbUri?: string | undefined;
 }
 
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  status: number;
+  error: string[];
+  accessToken: string;
+  refreshToken: string;
+}
+
 export const USER_PACKAGE_NAME = "user";
 
 export interface UsersServiceClient {
@@ -73,6 +85,8 @@ export interface UsersServiceClient {
   updateUser(request: UpdateUserDto): Observable<User>;
 
   queryUsers(request: Observable<PaginationDto>): Observable<Users>;
+
+  login(request: LoginRequest): Observable<LoginResponse>;
 }
 
 export interface UsersServiceController {
@@ -87,11 +101,13 @@ export interface UsersServiceController {
   updateUser(request: UpdateUserDto): Promise<User> | Observable<User> | User;
 
   queryUsers(request: Observable<PaginationDto>): Observable<Users>;
+
+  login(request: LoginRequest): Promise<LoginResponse> | Observable<LoginResponse> | LoginResponse;
 }
 
 export function UsersServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["checkAuth", "createUser", "findAllUsers", "findOneUser", "updateUser"];
+    const grpcMethods: string[] = ["checkAuth", "createUser", "findAllUsers", "findOneUser", "updateUser", "login"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("UsersService", method)(constructor.prototype[method], method, descriptor);

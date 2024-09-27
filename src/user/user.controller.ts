@@ -3,10 +3,11 @@ import {
   Get,
   Inject,
   OnModuleInit,
-  Req,
+  Param,
+  ParseIntPipe,
   UseGuards,
 } from '@nestjs/common';
-import { Users, USERS_SERVICE_NAME, UsersServiceClient } from './user.pb';
+import { User, USERS_SERVICE_NAME, UsersServiceClient } from './user.pb';
 import { ClientGrpc } from '@nestjs/microservices';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { Observable } from 'rxjs';
@@ -22,9 +23,13 @@ export class UserController implements OnModuleInit {
     this.svc = this.client.getService<UsersServiceClient>(USERS_SERVICE_NAME);
   }
 
-  @Get()
+  @Get(':id')
   @UseGuards(AuthGuard)
-  private async findAllUsers(@Req() req: Request): Promise<Observable<Users>> {
-    return this.svc.findAllUsers(req);
+  private async findOneUser(
+    @Param('id', ParseIntPipe) id: string,
+  ): Promise<Observable<User>> {
+    console.log(id);
+
+    return this.svc.findOneUser({ id });
   }
 }

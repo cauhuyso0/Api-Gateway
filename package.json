@@ -20,10 +20,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "proto:install": "npm i https://github.com/cauhuyso0/gRPC-proto.git",
     "proto:auth": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./node_modules/grpc-nest-proto/proto --ts_proto_out=src/auth/ node_modules/grpc-nest-proto/proto/auth.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
-    "proto:order": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/grpc-nest-proto/proto --ts_proto_out=src/order/ node_modules/grpc-nest-proto/proto/order.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
-    "proto:product": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/grpc-nest-proto/proto --ts_proto_out=src/product/ node_modules/grpc-nest-proto/proto/product.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
     "proto:user": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto.cmd -I=./node_modules/grpc-nest-proto/proto --ts_proto_out=src/user/ node_modules/grpc-nest-proto/proto/user.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
-    "proto:all": "npm run proto:auth && npm run proto:order && npm run proto:product && npm run proto:user"
+    "proto:all": "npm run proto:auth && npm run proto:user"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.11.3",

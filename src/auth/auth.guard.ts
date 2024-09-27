@@ -11,7 +11,7 @@ import { ValidateResponse } from './auth.pb';
 import { User } from 'src/user/user.pb';
 
 interface AuthenticatedRequest extends Request {
-  user?: User;
+  user: User;
 }
 
 @Injectable()
@@ -39,6 +39,8 @@ export class AuthGuard implements CanActivate {
 
     const { status, userId }: ValidateResponse =
       await this.service.validate(token);
+
+    req.user = req.user || ({} as User);
 
     req.user.id = userId;
 
